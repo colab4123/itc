@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>일정 관리</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">일정 추가/수정</h2>
+    <form th:action="@{/task/save}" method="post" th:object="${task}">
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{date}">
+
+        <div class="mb-3">
+            <label for="title" class="form-label">제목</label>
+            <input type="text" class="form-control" id="title" th:field="*{title}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">상세 내용</label>
+            <textarea class="form-control" id="description" th:field="*{description}" rows="3"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="startTime" class="form-label">시작 시간</label>
+            <input type="time" class="form-control" id="startTime" th:field="*{startTime}">
+        </div>
+
+        <div class="mb-3">
+            <label for="endTime" class="form-label">종료 시간</label>
+            <input type="time" class="form-control" id="endTime" th:field="*{endTime}">
+        </div>
+
+        <div class="mb-3">
+            <label for="priority" class="form-label">우선순위</label>
+            <select class="form-select" id="priority" th:field="*{priority}">
+                <option value="HIGH">높음</option>
+                <option value="MEDIUM">중간</option>
+                <option value="LOW">낮음</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">저장</button>
+        <a th:href="@{/calendar}" class="btn btn-secondary">취소</a>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ToDoList</title>
+    <style>
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        .calendar-day {
+            border: 1px solid #ddd;
+            min-height: 100px;
+            padding: 5px;
+            cursor: pointer; /* 클릭할 수 있다는 시각적 표시 */
+        }
+        .not-current-month {
+            background-color: #f0f0f0;
+            color: #999;
+        }
+        .calendar-day a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+        .calendar-day a:hover {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="${currentMonth.year} + '년 ' + ${currentMonth.monthValue} + '월'">달력</h1>
+
+<div class="calendar">
+    <div>월</div>
+    <div>화</div>
+    <div>수</div>
+    <div>목</div>
+    <div>금</div>
+    <div>토</div>
+    <div>일</div>
+
+    <!-- 날짜 클릭 시 URL로 넘어가게 수정 -->
+    <div th:each="date : ${calendarDates}"
+         th:class="${date.monthValue == currentMonth.monthValue} ? 'calendar-day' : 'calendar-day not-current-month'">
+        <a th:href="@{/tasks/{year}-{month}-{day}(year=${date.year}, month=${date.monthValue}, day=${date.dayOfMonth})}"
+           th:text="${date.dayOfMonth}"></a>
+        <div class="tasks">
+            <!-- 여기에 할 일 목록 추가 예정 -->
+        </div>
+    </div>
+</div>
+</body>
+</html>
